@@ -1,39 +1,32 @@
-# pylint: disable=import-error
+from pythonism import MyCollection
 import pytest
 
-from linkedlist import LinkedList
+
+def test_str(my_collection):
+    assert str(my_collection) == "[1, 2, 3, 4, 5]"
 
 
-# got help with this test from Daniel
-def test_range():
-    num_range = range(1,15+3)
-    nums = LinkedList(num_range)
-    assert len(nums) == 17
+def test_len(my_collection):
+    assert len(my_collection) == 5
 
 
-def test_for_in():
-    fruits = LinkedList(('grapes', 'pommergranate', 'orange'))
-    fruit_list = []
-    for fruit in fruits:
-        fruit_list.append(fruit)
-    assert fruit_list == ['grapes', 'pommergranate', 'orange']
+def test_getitem(my_collection):
+    assert my_collection[2] == 3
 
 
-def test_list_comprehension():
-    cars = LinkedList(('honda', 'ford', 'tesla'))
-    cap_cars = [car.upper() for car in cars]
-    assert cap_cars == ['HONDA ', 'FORD', 'TESLA']
+def test_contains_true(my_collection):
+    assert 3 in my_collection
 
 
-def test_list_cast():
-    rappers = ['lox', 'hov', 'drake']
-    rapper = LinkedList(rappers)
-    assert list(rapper) == rappers
+def test_contains_false(my_collection):
+    assert 6 not in my_collection
 
 
-def test_sum_values():
-    ll_values = LinkedList((3,27,91))
-    ll_total = 0
-    for i in ll_values:
-        ll_total += i
-    assert ll_total == 121
+def test_reversed(my_collection):
+    reversed_collection = reversed(my_collection)
+    assert list(reversed_collection) == [5, 4, 3, 2, 1]
+
+
+@pytest.fixture
+def my_collection():
+    return MyCollection([1, 2, 3, 4, 5])
